@@ -13,14 +13,14 @@ using EasingCore;
 namespace FancyScrollView
 {
     /// <summary>
-    /// スクロール位置の制御を行うコンポーネント.
+    /// Component for controlling scroll position. (スクロール位置の制御を行うコンポーネント。)
     /// </summary>
     public class Scroller : UIBehaviour, IPointerUpHandler, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IScrollHandler
     {
         [SerializeField] RectTransform viewport = default;
 
         /// <summary>
-        /// ビューポートのサイズ.
+        /// Viewport size. (ビューポートのサイズ。)
         /// </summary>
         public float ViewportSize => scrollDirection == ScrollDirection.Horizontal
             ? viewport.rect.size.x
@@ -29,14 +29,14 @@ namespace FancyScrollView
         [SerializeField] ScrollDirection scrollDirection = ScrollDirection.Vertical;
 
         /// <summary>
-        /// スクロール方向.
+        /// Scroll direction. (スクロール方向。)
         /// </summary>
         public ScrollDirection ScrollDirection => scrollDirection;
 
         [SerializeField] MovementType movementType = MovementType.Elastic;
 
         /// <summary>
-        /// コンテンツがスクロール範囲を越えて移動するときに使用する挙動.
+        /// Behavior used when content moves beyond the scroll range. (コンテンツがスクロール範囲を越えて移動するときに使用する挙動。)
         /// </summary>
         public MovementType MovementType
         {
@@ -47,7 +47,7 @@ namespace FancyScrollView
         [SerializeField] float elasticity = 0.1f;
 
         /// <summary>
-        /// コンテンツがスクロール範囲を越えて移動するときに使用する弾力性の量.
+        /// Amount of elasticity used when content moves beyond the scroll range. (コンテンツがスクロール範囲を越えて移動するときに使用する弾力性の量。)
         /// </summary>
         public float Elasticity
         {
@@ -58,7 +58,7 @@ namespace FancyScrollView
         [SerializeField] float scrollSensitivity = 1f;
 
         /// <summary>
-        /// <see cref="ViewportSize"/> の端から端まで Drag したときのスクロール位置の変化量.
+        /// Amount of change in scroll position when dragging from one end of <see cref="ViewportSize"/> to the other. (<see cref="ViewportSize"/> の端から端まで Drag したときのスクロール位置の変化量。)
         /// </summary>
         public float ScrollSensitivity
         {
@@ -69,7 +69,7 @@ namespace FancyScrollView
         [SerializeField] bool inertia = true;
 
         /// <summary>
-        /// 慣性を使用するかどうか. <c>true</c> を指定すると慣性が有効に, <c>false</c> を指定すると慣性が無効になります.
+        /// Whether to use inertia. Specify <c>true</c> to enable inertia, <c>false</c> to disable it. (慣性を使用するかどうか。 <c>true</c> を指定すると慣性が有効に, <c>false</c> を指定すると慣性が無効になります。)
         /// </summary>
         public bool Inertia
         {
@@ -80,7 +80,7 @@ namespace FancyScrollView
         [SerializeField] float decelerationRate = 0.03f;
 
         /// <summary>
-        /// スクロールの減速率. <see cref="Inertia"/> が <c>true</c> の場合のみ有効です.
+        /// Scroll deceleration rate. Only effective when <see cref="Inertia"/> is <c>true</c>. (スクロールの減速率。 <see cref="Inertia"/> が <c>true</c> の場合のみ有効です。)
         /// </summary>
         public float DecelerationRate
         {
@@ -96,10 +96,10 @@ namespace FancyScrollView
         };
 
         /// <summary>
-        /// <c>true</c> ならスナップし, <c>false</c>ならスナップしません.
+        /// Snaps if <c>true</c>, does not snap if <c>false</c>. (<c>true</c> ならスナップし, <c>false</c>ならスナップしません。)
         /// </summary>
         /// <remarks>
-        /// スナップを有効にすると, 慣性でスクロールが止まる直前に最寄りのセルへ移動します.
+        /// When snapping is enabled, it moves to the nearest cell just before scrolling stops due to inertia. (スナップを有効にすると, 慣性でスクロールが止まる直前に最寄りのセルへ移動します。)
         /// </remarks>
         public bool SnapEnabled
         {
@@ -110,7 +110,7 @@ namespace FancyScrollView
         [SerializeField] bool draggable = true;
 
         /// <summary>
-        /// Drag 入力を受付けるかどうか.
+        /// Whether to accept Drag input. (Drag 入力を受付けるかどうか。)
         /// </summary>
         public bool Draggable
         {
@@ -121,12 +121,12 @@ namespace FancyScrollView
         [SerializeField] Scrollbar scrollbar = default;
 
         /// <summary>
-        /// スクロールバーのオブジェクト.
+        /// Scrollbar object. (スクロールバーのオブジェクト。)
         /// </summary>
         public Scrollbar Scrollbar => scrollbar;
 
         /// <summary>
-        /// 現在のスクロール位置.
+        /// Current scroll position. (現在のスクロール位置。)
         /// </summary>
         /// <value></value>
         public float Position
@@ -210,50 +210,50 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// スクロール位置が変化したときのコールバックを設定します.
+        /// Sets a callback for when the scroll position changes. (スクロール位置が変化したときのコールバックを設定します。)
         /// </summary>
-        /// <param name="callback">スクロール位置が変化したときのコールバック.</param>
+        /// <param name="callback">Callback when the scroll position changes. (スクロール位置が変化したときのコールバック。)</param>
         public void OnValueChanged(Action<float> callback) => onValueChanged = callback;
 
         /// <summary>
-        /// 選択位置が変化したときのコールバックを設定します.
+        /// Sets a callback for when the selection position changes. (選択位置が変化したときのコールバックを設定します。)
         /// </summary>
-        /// <param name="callback">選択位置が変化したときのコールバック.</param>
+        /// <param name="callback">Callback when the selection position changes. (選択位置が変化したときのコールバック。)</param>
         public void OnSelectionChanged(Action<int> callback) => onSelectionChanged = callback;
 
         /// <summary>
-        /// アイテムの総数を設定します.
+        /// Sets the total number of items. (アイテムの総数を設定します。)
         /// </summary>
         /// <remarks>
-        /// <paramref name="totalCount"/> を元に最大スクロール位置を計算します.
+        /// Calculates the maximum scroll position based on <paramref name="totalCount"/>. (<paramref name="totalCount"/> を元に最大スクロール位置を計算します。)
         /// </remarks>
-        /// <param name="totalCount">アイテムの総数.</param>
+        /// <param name="totalCount">Total number of items. (アイテムの総数。)</param>
         public void SetTotalCount(int totalCount) => this.totalCount = totalCount;
 
         /// <summary>
-        /// 指定した位置まで移動します.
+        /// Moves to the specified position. (指定した位置まで移動します。)
         /// </summary>
-        /// <param name="position">スクロール位置. <c>0f</c> ~ <c>totalCount - 1f</c> の範囲.</param>
-        /// <param name="duration">移動にかける秒数.</param>
-        /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
+        /// <param name="position">Scroll position. Range from <c>0f</c> to <c>totalCount - 1f</c>. (スクロール位置。 <c>0f</c> ~ <c>totalCount - 1f</c> の範囲。)</param>
+        /// <param name="duration">Number of seconds for the movement. (移動にかける秒数。)</param>
+        /// <param name="onComplete">Callback called when the movement is complete. (移動が完了した際に呼び出されるコールバック。)</param>
         public void ScrollTo(float position, float duration, Action onComplete = null) => ScrollTo(position, duration, Ease.OutCubic, onComplete);
 
         /// <summary>
-        /// 指定した位置まで移動します.
+        /// Moves to the specified position. (指定した位置まで移動します。)
         /// </summary>
-        /// <param name="position">スクロール位置. <c>0f</c> ~ <c>totalCount - 1f</c> の範囲.</param>
-        /// <param name="duration">移動にかける秒数.</param>
-        /// <param name="easing">移動に使用するイージング.</param>
-        /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
+        /// <param name="position">Scroll position. Range from <c>0f</c> to <c>totalCount - 1f</c>. (スクロール位置。 <c>0f</c> ~ <c>totalCount - 1f</c> の範囲。)</param>
+        /// <param name="duration">Number of seconds for the movement. (移動にかける秒数。)</param>
+        /// <param name="easing">Easing to use for movement. (移動に使用するイージング。)</param>
+        /// <param name="onComplete">Callback called when the movement is complete. (移動が完了した際に呼び出されるコールバック。)</param>
         public void ScrollTo(float position, float duration, Ease easing, Action onComplete = null) => ScrollTo(position, duration, Easing.Get(easing), onComplete);
 
         /// <summary>
-        /// 指定した位置まで移動します.
+        /// Moves to the specified position. (指定した位置まで移動します。)
         /// </summary>
-        /// <param name="position">スクロール位置. <c>0f</c> ~ <c>totalCount - 1f</c> の範囲.</param>
-        /// <param name="duration">移動にかける秒数.</param>
-        /// <param name="easingFunction">移動に使用するイージング関数.</param>
-        /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
+        /// <param name="position">Scroll position. Range from <c>0f</c> to <c>totalCount - 1f</c>. (スクロール位置。 <c>0f</c> ~ <c>totalCount - 1f</c> の範囲。)</param>
+        /// <param name="duration">Number of seconds for the movement. (移動にかける秒数。)</param>
+        /// <param name="easingFunction">Easing function to use for movement. (移動に使用するイージング関数。)</param>
+        /// <param name="onComplete">Callback called when the movement is complete. (移動が完了した際に呼び出されるコールバック。)</param>
         public void ScrollTo(float position, float duration, EasingFunction easingFunction, Action onComplete = null)
         {
             if (duration <= 0f)
@@ -278,9 +278,9 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// 指定したインデックスの位置までジャンプします.
+        /// Jumps to the position of the specified index. (指定したインデックスの位置までジャンプします。)
         /// </summary>
-        /// <param name="index">アイテムのインデックス.</param>
+        /// <param name="index">Item index. (アイテムのインデックス。)</param>
         public void JumpTo(int index)
         {
             if (index < 0 || index > totalCount - 1)
@@ -293,11 +293,11 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// <paramref name="sourceIndex"/> から <paramref name="destIndex"/> に移動する際の移動方向を返します.
-        /// スクロール範囲が無制限に設定されている場合は, 最短距離の移動方向を返します.
+        /// Returns the movement direction when moving from <paramref name="sourceIndex"/> to <paramref name="destIndex"/>. (<paramref name="sourceIndex"/> から <paramref name="destIndex"/> に移動する際の移動方向を返します。)
+        /// If the scroll range is set to unlimited, returns the movement direction of the shortest distance. (スクロール範囲が無制限に設定されている場合は, 最短距離の移動方向を返します。)
         /// </summary>
-        /// <param name="sourceIndex">移動元のインデックス.</param>
-        /// <param name="destIndex">移動先のインデックス.</param>
+        /// <param name="sourceIndex">Source index. (移動元のインデックス。)</param>
+        /// <param name="destIndex">Destination index. (移動先のインデックス。)</param>
         /// <returns></returns>
         public MovementDirection GetMovementDirection(int sourceIndex, int destIndex)
         {
