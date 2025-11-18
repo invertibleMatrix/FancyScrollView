@@ -9,12 +9,11 @@ using UnityEngine;
 namespace FancyScrollView
 {
     /// <summary>
-    /// <see cref="FancyScrollRect{TItemData, TContext}"/> のセルを実装するための抽象基底クラス.
-    /// <see cref="FancyCell{TItemData, TContext}.Context"/> が不要な場合は
-    /// 代わりに <see cref="FancyScrollRectCell{TItemData}"/> を使用します.
+    /// Abstract base class for implementing cells of <see cref="FancyScrollRect{TItemData, TContext}"/>. (<see cref="FancyScrollRect{TItemData, TContext}"/> のセルを実装するための抽象基底クラス。)
+    /// If <see cref="FancyCell{TItemData, TContext}.Context"/> is not needed, use <see cref="FancyScrollRectCell{TItemData}"/> instead. (<see cref="FancyCell{TItemData, TContext}.Context"/> が不要な場合は代わりに <see cref="FancyScrollRectCell{TItemData}"/> を使用します。)
     /// </summary>
-    /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
-    /// <typeparam name="TContext"><see cref="FancyCell{TItemData, TContext}.Context"/> の型.</typeparam>
+    /// <typeparam name="TItemData">Item data type. (アイテムのデータ型。)</typeparam>
+    /// <typeparam name="TContext">Type of <see cref="FancyCell{TItemData, TContext}.Context"/>. (<see cref="FancyCell{TItemData, TContext}.Context"/> の型。)</typeparam>
     public abstract class FancyScrollRectCell<TItemData, TContext> : FancyCell<TItemData, TContext>
         where TContext : class, IFancyScrollRectContext, new()
     {
@@ -32,14 +31,13 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// このセルの位置を更新します.
+        /// Updates the position of this cell. (このセルの位置を更新します。)
         /// </summary>
         /// <param name="normalizedPosition">
-        /// ビューポートの範囲で正規化されたスクロール位置.
-        /// <see cref="FancyScrollRect{TItemData, TContext}.reuseCellMarginCount"/> の値に基づいて
-        ///  <c>0.0</c> ~ <c>1.0</c> の範囲を超えた値が渡されることがあります.
+        /// Scroll position normalized in the viewport range. (ビューポートの範囲で正規化されたスクロール位置。)
+        /// Based on the value of <see cref="FancyScrollRect{TItemData, TContext}.reuseCellMarginCount"/>, values beyond the range of <c>0.0</c> to <c>1.0</c> may be passed. (<see cref="FancyScrollRect{TItemData, TContext}.reuseCellMarginCount"/> の値に基づいて <c>0.0</c> ~ <c>1.0</c> の範囲を超えた値が渡されることがあります。)
         /// </param>
-        /// <param name="localPosition">ローカル位置.</param>
+        /// <param name="localPosition">Local position. (ローカル位置。)</param>
         protected virtual void UpdatePosition(float normalizedPosition, float localPosition)
         {
             transform.localPosition = Context.ScrollDirection == ScrollDirection.Horizontal
@@ -49,9 +47,9 @@ namespace FancyScrollView
     }
 
     /// <summary>
-    /// <see cref="FancyScrollRect{TItemData}"/> のセルを実装するための抽象基底クラス.
+    /// Abstract base class for implementing cells of <see cref="FancyScrollRect{TItemData}"/>. (<see cref="FancyScrollRect{TItemData}"/> のセルを実装するための抽象基底クラス。)
     /// </summary>
-    /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
+    /// <typeparam name="TItemData">Item data type. (アイテムのデータ型。)</typeparam>
     /// <seealso cref="FancyScrollRectCell{TItemData, TContext}"/>
     public abstract class FancyScrollRectCell<TItemData> : FancyScrollRectCell<TItemData, FancyScrollRectContext>
     {

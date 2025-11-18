@@ -13,42 +13,40 @@ using EasingCore;
 namespace FancyScrollView
 {
     /// <summary>
-    /// グリッドレイアウトのスクロールビューを実装するための抽象基底クラス.
-    /// 無限スクロールおよびスナップには対応していません.
-    /// <see cref="FancyScrollView{TItemData, TContext}.Context"/> が不要な場合は
-    /// 代わりに <see cref="FancyGridView{TItemData}"/> を使用します.
+    /// Abstract base class for implementing grid layout scroll views. (グリッドレイアウトのスクロールビューを実装するための抽象基底クラス。)
+    /// Does not support infinite scrolling or snapping. (無限スクロールおよびスナップには対応していません。)
+    /// If <see cref="FancyScrollView{TItemData, TContext}.Context"/> is not needed, use <see cref="FancyGridView{TItemData}"/> instead. (<see cref="FancyScrollView{TItemData, TContext}.Context"/> が不要な場合は代わりに <see cref="FancyGridView{TItemData}"/> を使用します。)
     /// </summary>
-    /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
-    /// <typeparam name="TContext"><see cref="FancyScrollView{TItemData, TContext}.Context"/> の型.</typeparam>
+    /// <typeparam name="TItemData">Item data type. (アイテムのデータ型。)</typeparam>
+    /// <typeparam name="TContext">Type of <see cref="FancyScrollView{TItemData, TContext}.Context"/>. (<see cref="FancyScrollView{TItemData, TContext}.Context"/> の型。)</typeparam>
     public abstract class FancyGridView<TItemData, TContext> : FancyScrollRect<TItemData[], TContext>
         where TContext : class, IFancyGridViewContext, new()
     {
         /// <summary>
-        /// デフォルトのセルグループクラス.
+        /// Default cell group class. (デフォルトのセルグループクラス。)
         /// </summary>
         protected abstract class DefaultCellGroup : FancyCellGroup<TItemData, TContext> { }
 
         /// <summary>
-        /// 最初にセルを配置する軸方向のセル同士の余白.
+        /// Spacing between cells in the axis direction where cells are initially placed. (最初にセルを配置する軸方向のセル同士の余白。)
         /// </summary>
         [SerializeField] protected float startAxisSpacing = 0f;
 
         /// <summary>
-        /// 最初にセルを配置する軸方向のセル数.
+        /// Number of cells in the axis direction where cells are initially placed. (最初にセルを配置する軸方向のセル数。)
         /// </summary>
         [SerializeField] protected int startAxisCellCount = 4;
 
         /// <summary>
-        /// セルのサイズ.
+        /// Cell size. (セルのサイズ。)
         /// </summary>
         [SerializeField] protected Vector2 cellSize = new Vector2(100f, 100f);
 
         /// <summary>
-        /// セルのグループ Prefab.
+        /// Cell group Prefab. (セルのグループ Prefab。)
         /// </summary>
         /// <remarks>
-        /// <see cref="FancyGridView{TItemData, TContext}"/> では,
-        /// <see cref="FancyScrollView{TItemData, TContext}.CellPrefab"/> を最初にセルを配置する軸方向のセルコンテナとして使用します.
+        /// In <see cref="FancyGridView{TItemData, TContext}"/>, <see cref="FancyScrollView{TItemData, TContext}.CellPrefab"/> is used as a cell container in the axis direction where cells are initially placed. (<see cref="FancyGridView{TItemData, TContext}"/> では, <see cref="FancyScrollView{TItemData, TContext}.CellPrefab"/> を最初にセルを配置する軸方向のセルコンテナとして使用します。)
         /// </remarks>
         protected sealed override GameObject CellPrefab => cellGroupTemplate;
 
@@ -58,7 +56,7 @@ namespace FancyScrollView
             : cellSize.y;
 
         /// <summary>
-        /// アイテムの総数.
+        /// Total number of items. (アイテムの総数。)
         /// </summary>
         public int DataCount { get; private set; }
 
