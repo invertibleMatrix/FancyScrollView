@@ -10,22 +10,22 @@ using System.Linq;
 namespace FancyScrollView
 {
     /// <summary>
-    /// 複数の <see cref="FancyCell{TItemData, TContext}"/> を持つセルグループ実装するための抽象基底クラス.
+    /// Abstract base class for implementing cell groups with multiple <see cref="FancyCell{TItemData, TContext}"/>. (複数の <see cref="FancyCell{TItemData, TContext}"/> を持つセルグループ実装するための抽象基底クラス。)
     /// </summary>
-    /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
-    /// <typeparam name="TContext"><see cref="FancyCell{TItemData, TContext}.Context"/> の型.</typeparam>
+    /// <typeparam name="TItemData">Item data type. (アイテムのデータ型。)</typeparam>
+    /// <typeparam name="TContext">Type of <see cref="FancyCell{TItemData, TContext}.Context"/>. (<see cref="FancyCell{TItemData, TContext}.Context"/> の型。)</typeparam>
     public abstract class FancyCellGroup<TItemData, TContext> : FancyCell<TItemData[], TContext>
         where TContext : class, IFancyCellGroupContext, new()
     {
         /// <summary>
-        /// このグループで表示するセルの配列.
+        /// Array of cells displayed in this group. (このグループで表示するセルの配列。)
         /// </summary>
         protected virtual FancyCell<TItemData, TContext>[] Cells { get; private set; }
 
         /// <summary>
-        /// このグループで表示するセルの配列をインスタンス化します.
+        /// Instantiates the array of cells to be displayed in this group. (このグループで表示するセルの配列をインスタンス化します。)
         /// </summary>
-        /// <returns>このグループで表示するセルの配列.</returns>
+        /// <returns>Array of cells to be displayed in this group. (このグループで表示するセルの配列。)</returns>
         protected virtual FancyCell<TItemData, TContext>[] InstantiateCells()
         {
             return Enumerable.Range(0, Context.GetGroupCount())
